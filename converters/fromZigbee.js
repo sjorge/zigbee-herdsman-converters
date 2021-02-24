@@ -1759,6 +1759,7 @@ const converters = {
             // NOTE: remove the result for now, but leave it configure for reporting
             //       it will show up in the debug log still to help try and figure out
             //       what this value potentially means.
+            meta.logger.warn(`XXX: ${JSON.stringify(msg.data)}`);
             delete result.pi_heating_demand;
 
             // viessmannCustom0
