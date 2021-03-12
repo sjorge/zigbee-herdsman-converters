@@ -4538,7 +4538,7 @@ const converters = {
             }
         },
         convertGet: async (entity, key, meta) => {
-            if (!meta.message.viessmann_raw || (typeof meta.message.viessmann_raw === 'object')) {
+            if (meta.message.hasOwnProperty('viessmann_raw') || (typeof meta.message.viessmann_raw === 'object')) {
                 for (const attrName of Object.keys(meta.message.viessmann_raw)) {
                     try {
                         await entity.read('hvacThermostat', [attrName], manufacturerOptions.viessmann);

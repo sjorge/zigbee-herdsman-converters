@@ -16185,7 +16185,7 @@ const devices = [
         fromZigbee: [fz.legacy.viessmann_thermostat_att_report, fz.battery, fz.legacy.hvac_user_interface],
         toZigbee: [tz.thermostat_local_temperature, tz.thermostat_occupied_heating_setpoint, tz.thermostat_control_sequence_of_operation,
             tz.thermostat_system_mode, tz.thermostat_keypad_lockout, tz.viessmann_window_open, tz.viessmann_window_open_force,
-            tz.viessmann_assembly_mode,
+            tz.viessmann_assembly_mode, tz.viessmann_raw,
         ],
         exposes: [
             exposes.climate().withSetpoint('occupied_heating_setpoint', 7, 30, 1)
