@@ -16212,6 +16212,20 @@ const devices = [
             await endpoint.configureReporting('hvacThermostat', [{attribute: 'viessmannCustom0', minimumReportInterval: 60,
                 maximumReportInterval: 3600}], options);
 
+            // experimental manufacturer attributes
+            await endpoint.configureReporting('hvacThermostat', [{attribute: 'viessmannCustom1', minimumReportInterval: 60,
+                maximumReportInterval: 900, reportableChange: 10}], options);
+            await endpoint.configureReporting('hvacThermostat', [{attribute: 'viessmannCustom2', minimumReportInterval: 60,
+                maximumReportInterval: 900, reportableChange: 10}], options);
+            await endpoint.configureReporting('hvacThermostat', [{attribute: 'viessmannCustom5', minimumReportInterval: 60,
+                maximumReportInterval: 65534, reportableChange: 1}], options);
+            await endpoint.configureReporting('hvacThermostat', [{attribute: 'viessmannCustom9', minimumReportInterval: 0,
+                maximumReportInterval: 65534, reportableChange: 10}], options);
+            await endpoint.configureReporting('hvacThermostat', [{attribute: 'viessmannCustom10', minimumReportInterval: 0,
+                maximumReportInterval: 65534, reportableChange: 1}], options);
+            await endpoint.configureReporting('hvacThermostat', [{attribute: 'viessmannCustom12', minimumReportInterval: 0,
+                maximumReportInterval: 65534, reportableChange: 1}], options);
+
             // read window_open_force, we don't need reporting as it cannot be set physically on the device
             await endpoint.read('hvacThermostat', ['viessmannWindowOpenForce'], options);
 
