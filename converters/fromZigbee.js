@@ -1759,7 +1759,6 @@ const converters = {
             // NOTE: remove the result for now, but leave it configure for reporting
             //       it will show up in the debug log still to help try and figure out
             //       what this value potentially means.
-            meta.logger.warn(`XXX: ${JSON.stringify(msg.data)}`);
             delete result.pi_heating_demand;
 
             // viessmannCustom0
@@ -1780,6 +1779,14 @@ const converters = {
             // 1: TRV ready to install (-- on display)
             if (msg.data.hasOwnProperty('viessmannAssemblyMode')) {
                 result.assembly_mode = (msg.data['viessmannAssemblyMode'] == 1);
+            }
+
+            // viessman raw debug
+            result.viessmann_raw = {};
+            for (const [attrName, attrValue] of Object.entries(msg.data)) {
+                if (attrName.startsWith('viessmann')) {
+                    result.viessmann_raw[attrName] = attrValue;
+                }
             }
 
             return result;
