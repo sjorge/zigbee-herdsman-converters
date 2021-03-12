@@ -4528,6 +4528,29 @@ const converters = {
             await entity.read('hvacThermostat', ['viessmannAssemblyMode'], manufacturerOptions.viessmann);
         },
     },
+    viessmann_raw: {
+        key: ['viessmann_raw'],
+        convertSet: async (entity, key, value, meta) => {
+            for (const [attrName, attrValue] of Object.entries(value)) {
+                const attributes = {};
+                attributes[attrName] = attrValue;
+                await entity.write('hvacThermostat', attributes, manufacturerOptions.viessmann);
+            }
+        },
+        convertGet: async (entity, key, meta) => {
+            if (!meta.message.viessmann_raw || (typeof meta.message.viessmann_raw === 'object')) {
+                for (const attrName of Object.keys(meta.message.viessmann_raw)) {
+                    try {
+                        await entity.read('hvacThermostat', [attrName], manufacturerOptions.viessmann);
+                    } catch (e) {
+                        meta.logger.warn(`failed to read ${attrName}: ${e}`);
+                    }
+                }
+            } else {
+                meta.logger.warn('did not specify any attributes to read in viessman_raw!');
+            }
+        },
+    },
     dawondns_only_off: {
         key: ['state'],
         convertSet: async (entity, key, value, meta) => {
