@@ -10,6 +10,7 @@ import * as utils from './lib/utils';
 import { Definition, Fingerprint, Zh, OnEventData, OnEventType, Configure, Expose, Tz, OtaUpdateAvailableResult, KeyValue, Logger } from './lib/types';
 import {generateDefinition} from './lib/generateDefinition';
 import * as logger from './lib/logger';
+import {SendPolicy} from 'zigbee-herdsman/dist/controller/tstype';
 
 export {
     Definition as Definition,
@@ -356,7 +357,7 @@ export async function onEvent(type: OnEventType, data: OnEventData, device: Zh.D
     if (data.meta && data.meta.manufacturerCode === 0x1021 && type === 'message' && data.type === 'read' &&
         data.cluster === 'genBasic' && data.data && data.data.includes(61440)) {
         const endpoint = device.getEndpoint(1);
-        const options = {manufacturerCode: 0x1021, disableDefaultResponse: true};
+        const options = {manufacturerCode: 0x1021, disableDefaultResponse: true, sendPolicy: 'immediate' as SendPolicy};
         const payload = {0xf00: {value: 23, type: 35}};
         await endpoint.readResponse('genBasic', data.meta.zclTransactionSequenceNumber, payload, options);
     }
